@@ -300,7 +300,9 @@ class _TRegisterPageState extends State<TRegisterPage> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: TextButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                await setData();
+                                print("Veri Firestore'a kaydedildi!");
                                 //Navigator.pushNamed(context, '/main');
                               },
                               child: Text(
@@ -321,4 +323,7 @@ class _TRegisterPageState extends State<TRegisterPage> {
       ),
     );
   }
+}
+
+setData() {
 }
