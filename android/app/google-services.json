@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "993342818538",
+    "project_id": "troiacode17",
+    "storage_bucket": "troiacode17.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993342818538:android:55891344cf58f6ef626f93",
+        "android_client_info": {
+          "package_name": "com.example.troiacode17"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCIPm6MdMrzkdHeT3WvFRtkl_LwqlnDOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
