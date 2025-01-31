@@ -1,11 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:troiacode17/gregister.dart';
 import 'package:troiacode17/logreg.dart';
 import 'package:troiacode17/sregister.dart';
 import 'package:troiacode17/tregister.dart';
 import 'package:flutter/material.dart';
 
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Uygulama başlatılmadan önce Firebase'i başlat
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ); // Firebase'i başlat
   runApp(Register());
 }
 
@@ -18,6 +25,7 @@ class Register extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'TroiaCode:17',
         home: RegisterPage(),
+        initialRoute: '/',
         routes: {
           '/register ': (context) {
             return RegisterPage();

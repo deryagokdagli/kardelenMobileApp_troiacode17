@@ -1,7 +1,16 @@
-import 'package:troiacode17/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:troiacode17/mainpage.dart';
+import 'package:troiacode17/register.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Uygulama başlatılmadan önce Firebase'i başlat
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ); // Firebase'i başlat
   runApp(Login());
 }
 
@@ -19,6 +28,7 @@ class Login extends StatelessWidget {
           '/login': (context) {
             return LoginPage();
           },
+          '/mainpage': (context) => MainPage(),
           '/register': (context) => Register(),
         });
   }
@@ -32,116 +42,116 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String _sifre = ""; //textfield için değişkenimi oluşturdum
-  TextEditingController _sifreController =
-  TextEditingController(); //controller oluşturma
-  @override //initstate: durum ilk başladığında ne olsun yani durum başlangıcı
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _sifreController.addListener(() {
-      setState(() {}); //her seferinde çalıştırıyor
-    });
-  }
+  late String eposta, sifre;
+  final formkey = GlobalKey<FormState>();
+  final firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        toolbarHeight: 150,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          toolbarHeight: 150,
-          backgroundColor: Colors.white,
-          title: Text('KARDELEN',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF15004D),
-                fontSize: 40,
-                letterSpacing: 0.5,
-              )),
-          centerTitle: true,
+        title: Text(
+          'KARDELEN',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF15004D),
+            fontSize: 40,
+            letterSpacing: 0.5,
+          ),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Column(children: [
-              SizedBox(height: 300),
-              Text('GİRİŞ',
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          child: Form(
+            key: formkey,
+            child: Column(
+              children: [
+                SizedBox(height: 300),
+                Text(
+                  'GİRİŞ',
                   style: TextStyle(
-                      color: Color(0xFF15004D),
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold)),
-              SizedBox(height: 30),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Kullanıcı adı:",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors
-                          .black, // Yazı rengi (Tema rengine göre değiştirebilirsin)
-                    ),
+                    color: Color(0xFF15004D),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(height: 5),
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100], // Arka plan rengi
-                      borderRadius:
-                      BorderRadius.circular(5), // Köşeleri yuvarla
-                      border: Border.all(color: Colors.black),
+                ),
+                SizedBox(height: 30),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "E-posta:",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
-                    child: TextField(
-                        decoration:
-                        InputDecoration(border: InputBorder.none)),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    "Şifre:",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors
-                          .black, // Yazı rengi (Tema rengine göre değiştirebilirsin)
+                    SizedBox(height: 5),
+                    Container(
+                      padding: EdgeInsets.only(left: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black),
+                      ),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Bilgileri Eksiksiz Doldurunuz';
+                          } else {}
+                        },
+                        onSaved: (value) {
+                          eposta = value!;
+                        },
+                        decoration: InputDecoration(border: InputBorder.none),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100], // Arka plan rengi
-                      borderRadius:
-                      BorderRadius.circular(5), // Köşeleri yuvarla
-                      border: Border.all(color: Colors.black),
+                    SizedBox(height: 20),
+                    Text(
+                      "Şifre:",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
-                    child: TextField(
+                    SizedBox(height: 5),
+                    Container(
+                      padding: EdgeInsets.only(left: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black),
+                      ),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Bilgileri Eksiksiz Doldurunuz';
+                          } else {}
+                        },
+                        onSaved: (value) {
+                          sifre = value!;
+                        },
                         obscureText: true,
-                        controller: _sifreController,
-                        onChanged: (_ekranDegeri) {
-                          setState(() {
-                            _sifre =
-                                _ekranDegeri; //kullanıcı textfielda bir şeyler yazıyor bunlar ekrandegerinde, _sifre _ekrandegerine atadım, setstate her seferinde bunu güncelle demek
-                          });
-                        },
-                        onTap: () {
-                          print('Texfield\'a tıklandı');
-                        },
-                        onEditingComplete: () {
-                          print('Textfield\'a yazım tamamlandı.');
-                        },
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           suffixIcon: Icon(
                             Icons.lock,
                             color: Color(0xFF15004D),
                           ),
-                        )),
-                  ),
-                  SizedBox(height: 30),
-                  Center(
-                    child: Container(
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Center(
+                      child: Container(
                         width: 400,
                         height: 60,
                         decoration: BoxDecoration(
@@ -149,38 +159,75 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextButton(
-                            onPressed: () {
-                              //Navigator.pushNamed(context, '/main');
-                            },
-                            child: Text(
-                              'Giriş yap',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ))),
-                  ),
-                  SizedBox(height: 10),
-                  Center(
-                    child: SizedBox(
+                          onPressed: () async {
+                            if (formkey.currentState!.validate()) {
+                              formkey.currentState!.save();
+                              try {
+                                final userResult = await firebaseAuth
+                                    .signInWithEmailAndPassword(
+                                        email: eposta, password: sifre);
+                                Navigator.pushNamed(context, '/mainpage');
+                              } catch (e) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      title: Text('Hata', style: TextStyle(color: Color(0xFF15004D), fontWeight: FontWeight.bold, fontSize: 30)),
+                                      content: Text(
+                                          'E-posta veya şifre yanlış. Lütfen tekrar deneyin.', style: TextStyle(color: Colors.black,fontSize: 18),),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('Tamam', style: TextStyle(color: Color(0xFF15004D),fontSize: 20)),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            } else {}
+                          },
+                          child: Text(
+                            'Giriş yap',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Center(
+                      child: SizedBox(
                         width: 300,
                         height: 40,
                         child: TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/register');
-                            },
-                            child: Text(
-                              'Henüz bir hesabınız yok mu? Kayıt ol.',
-                              style: TextStyle(
-                                  color: Colors.cyan,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            ))),
-                  ),
-                ],
-              ),
-            ]),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/register');
+                          },
+                          child: Text(
+                            'Henüz bir hesabınız yok mu? Kayıt ol.',
+                            style: TextStyle(
+                              color: Colors.cyan,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

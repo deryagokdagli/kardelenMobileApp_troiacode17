@@ -1,8 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:troiacode17/login.dart';
 import 'package:troiacode17/register.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Uygulama başlatılmadan önce Firebase'i başlat
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ); // Firebase'i başlat
   runApp(LogReg());
 }
 
@@ -14,26 +22,25 @@ class LogReg extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'TroiaCode:17',
-        home: MainPage(),
-        initialRoute: '/',
+        home: LogRegPage(),
         routes: {
-          '/login': (context) {
+          '/logreg': (context) {
             return LogReg();
           },
           '/register': (context) => Register(),
-          '/login': (context) => LoginPage(),
+          '/login': (context) => Login(),
         });
   }
 }
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class LogRegPage extends StatefulWidget {
+  const LogRegPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<LogRegPage> createState() => _LogRegPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _LogRegPageState extends State<LogRegPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
