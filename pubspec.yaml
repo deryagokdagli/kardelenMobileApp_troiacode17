@@ -67,6 +67,17 @@ flutter:
     - lib/assets/images/teacher.png
     - lib/assets/images/guardian2.png
     - lib/assets/images/group.png
+    - lib/assets/images/mail.png
+    - lib/assets/images/dialog.png
+    - lib/assets/images/mainmail.png
+    - lib/assets/images/protest.png
+    - lib/assets/images/complain.png
+    - lib/assets/images/bin.png
+    - lib/assets/images/feedback.png
+    - lib/assets/images/user-account.png
+    - lib/assets/images/danger-sign.png
+    - lib/assets/images/bill-of-rights.png
+    - lib/assets/images/mainbin.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:troiacode17/logreg.dart';
 import 'package:troiacode17/mainpage.dart';
 import 'package:troiacode17/register.dart';
 import 'package:flutter/material.dart';
