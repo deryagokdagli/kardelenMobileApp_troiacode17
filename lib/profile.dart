@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:troiacode17/logreg.dart';
@@ -43,50 +42,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  /*final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  String username = "Yükleniyor...";
-  String email = "Yükleniyor...";
-  String school = "Yükleniyor...";
-
-  @override
-  void initState() {
-    super.initState();
-    getUserData();
-  }
-
-  Future<void> getUserData() async {
-    // Firebase Authentication'dan giriş yapmış kullanıcıyı al
-    User? user = _auth.currentUser;
-
-    // Eğer kullanıcı oturum açtıysa
-    if (user != null) {
-      try {
-        // Firestore'dan kullanıcı verilerini çek
-        DocumentSnapshot userData = await _firestore.collection('users').doc(user.uid).get();
-
-        // Eğer kullanıcı verisi Firestore'da mevcutsa
-        if (userData.exists) {
-          setState(() {
-            // Firestore'dan alınan verilere göre UI'yi güncelle
-            username = "${userData['Ad']} ${userData['Soyad']}";
-            email = userData['E-posta'];
-            school = userData['Okul'];
-          });
-        } else {
-          // Firestore'da kullanıcı verisi yoksa
-          print("Kullanıcı verisi bulunamadı.");
-        }
-      } catch (e) {
-        // Hata durumunda bir şeyler yazdır
-        print("Hata oluştu: $e");
-      }
-    } else {
-      // Kullanıcı oturum açmamışsa
-      print("Kullanıcı girişi yapılmamış.");
-    }
-  }*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
           },
         ),
         title: Text(
-          'Username',
+          'Troia Code',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.cyan,
@@ -119,22 +75,13 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 150),
-                /*Text(
-                  'username',
-                  style: TextStyle(
-                    color: Colors.deepPurpleAccent,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),*/
-                SizedBox(height: 50),
+                SizedBox(height: 200),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       child: Text(
-                        "school",
+                        "Okul: ABC",
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -145,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(height: 60),
                     Container(
                       child: Text(
-                        "email",
+                        "E-posta: troiacode@gmail.com",
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -198,7 +145,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: TextButton(
                           onPressed: () {
                             print("Hesabı sil butonuna tıklandı!");
-                            Navigator.pushNamed(context, '/logreg');
                           },
                           child: Text(
                             'Hesabı sil',

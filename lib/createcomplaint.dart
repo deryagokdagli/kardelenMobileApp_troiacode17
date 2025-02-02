@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,12 +35,30 @@ class CreateComplaint extends StatelessWidget {
 
 class CreateComplaintPage extends StatefulWidget {
   const CreateComplaintPage({super.key});
-
   @override
   State<CreateComplaintPage> createState() => _CreateComplaintPageState();
 }
 
 class _CreateComplaintPageState extends State<CreateComplaintPage> {
+  final TextEditingController baslikController = TextEditingController();
+  final TextEditingController konuController = TextEditingController();
+  final TextEditingController sikayetController = TextEditingController();
+
+
+  Future<void> addData() async {
+    FirebaseFirestore nesne = FirebaseFirestore.instance;
+    CollectionReference sikayetlerCol = nesne.collection('sikayetler');
+
+    Map<String, dynamic> yeniSikayetler = {
+      'Başlık': baslikController.text,
+      'KONU': konuController.text,
+      'Şikayetinizi yazınız.': sikayetController.text,
+
+
+    };
+    await sikayetlerCol.add(yeniSikayetler);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,6 +96,7 @@ class _CreateComplaintPageState extends State<CreateComplaintPage> {
                   border: Border.all(color: Colors.black),
                 ),
                 child: TextField(
+                  controller: baslikController,
                   decoration: InputDecoration(
                       border: InputBorder.none, hintText: 'Başlık:'),
                 ),
@@ -90,6 +110,7 @@ class _CreateComplaintPageState extends State<CreateComplaintPage> {
                   border: Border.all(color: Colors.black),
                 ),
                 child: TextField(
+                  controller: konuController,
                   decoration: InputDecoration(
                       border: InputBorder.none, hintText: 'KONU:'),
                 ),
@@ -104,6 +125,7 @@ class _CreateComplaintPageState extends State<CreateComplaintPage> {
                   border: Border.all(color: Colors.black),
                 ),
                 child: TextField(
+                  controller: sikayetController,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Şikayetinizi yazınız.'),
@@ -156,7 +178,10 @@ class _CreateComplaintPageState extends State<CreateComplaintPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      await addData();
+                      Navigator.pushNamed(context, '/mainpage');
+                    },
                     child: Text(
                       'Gönder',
                       style: TextStyle(

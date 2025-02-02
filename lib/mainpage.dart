@@ -1,13 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:troiacode17/bin.dart';
 import 'package:troiacode17/createcomplaint.dart';
 import 'package:troiacode17/inbox.dart';
+import 'package:troiacode17/logreg.dart';
 import 'package:troiacode17/mycomplaints.dart';
 import 'package:troiacode17/myrights.dart';
 import 'package:troiacode17/profile.dart';
+import 'package:troiacode17/sregister.dart';
+import 'package:troiacode17/tregister.dart';
 
 import 'firebase_options.dart';
+import 'gregister.dart';
 
 void main() async {
   WidgetsFlutterBinding
@@ -38,6 +43,10 @@ class MainPage extends StatelessWidget {
           '/createcomplaint': (context) => CreateComplaint(),
           '/myrights': (context) => MyRights(),
           '/bin': (context) => Bin(),
+          '/logreg': (context) => LogReg(),
+          '/sregister': (context) => SRegister(),
+          '/tregister': (context) => TRegister(),
+          '/gregister': (context) => GRegister(),
         });
   }
 }
@@ -50,6 +59,16 @@ class MainHomePage extends StatefulWidget {
 }
 
 class _MainHomePageState extends State<MainHomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance; // FirebaseAuth nesnesi
+
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+      print("Başarıyla çıkış yapıldı!");
+      Navigator.pushNamed(context, '/logreg'); // Giriş ekranına yönlendir
+    } catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +87,24 @@ class _MainHomePageState extends State<MainHomePage> {
             ),
             textAlign: TextAlign.left,
           ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                await signOut();
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Text(
+                  'Çıkış Yap',
+                  style: TextStyle(
+                    color: Color(0xFF15004D), // Buton yazı rengi
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         body: Padding(
             padding: EdgeInsets.all(20.0),
@@ -190,7 +227,8 @@ class _MainHomePageState extends State<MainHomePage> {
                                 shadowColor: Colors.transparent,
                               ),
                               onPressed: () {
-                                Navigator.pushNamed(context, '/createcomplaint');
+                                Navigator.pushNamed(
+                                    context, '/createcomplaint');
                                 print("Oluştur button clicked!");
                               },
                               child: Image.asset(
