@@ -1,12 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:troiacode17/logreg.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Uygulama başlatılmadan önce Firebase'i başlat
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
+  ); // Firebase'i başlat
+  runApp(LogReg());
 }
 
 class MyApp extends StatelessWidget {
