@@ -12,7 +12,7 @@ Kullanıcılar E-posta ve şifre ile giriş yaparak platformu kullanabilecek, ş
 
 Şikayet örnekleri arasında, okullardaki hijyen sorunları, öğretmen eksiklikleri, ders materyali yetersizliği gibi çeşitli eğitimle ilgili sık karşılaşılan problemler yer alacaktır.
 
-[ENG]
+[EN]
 
 TroiaCode:17 Project (Derya Gökdağlı, Kuddusi Tolga Urcan)
 
