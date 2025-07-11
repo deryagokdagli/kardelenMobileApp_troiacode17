@@ -18,9 +18,7 @@ TroiaCode:17 Project (Derya Gökdağlı, Kuddusi Tolga Urcan)
 
 About the Project
 
-The aim of this application is to provide a secure and anonymous platform for primary and secondary school students, teachers and parents to report problems and complaints about education. The application will automate the process of forwarding complaints to the right institutions (e.g. MoNE), while allowing users to safely voice their concerns about the education process. The system will assess the validity of complaints and ensure that they are appropriately forwarded to the relevant institution, thus
-
-contributing to preventing human rights violations and creating a fairer environment in education.
+The aim of this application is to provide a secure and anonymous platform for primary and secondary school students, teachers and parents to report problems and complaints about education. The application will automate the process of forwarding complaints to the right institutions (e.g. MoNE), while allowing users to safely voice their concerns about the education process. The system will assess the validity of complaints and ensure that they are appropriately forwarded to the relevant institution, thus contributing to preventing human rights violations and creating a fairer environment in education.
 
 Users will be able to use the platform by logging in with their e-mail and password, submit their complaints anonymously and track the status of their complaints. By providing security and anonymity, the app supports users to raise issues without worrying about getting a response.
 
